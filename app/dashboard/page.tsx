@@ -80,52 +80,11 @@ interface Paciente {
   [key: string]: any; // Para cualquier otro campo
 }
 
-// Datos de citas
-const appointments = [
-  { 
-    id: 1, 
-    date: "December 7, 2024", 
-    title: "Left shoulder injury",
-    isHighlighted: true 
-  },
-  { 
-    id: 2, 
-    date: "March 15, 2024", 
-    title: "Routine check",
-    isHighlighted: false 
-  },
-  { 
-    id: 3, 
-    date: "March 20, 2024", 
-    title: "Routine check",
-    isHighlighted: false 
-  }
-];
+// Dat
 
-// Datos de análisis de sangre
-const bloodTest = {
-  cbp: { value: "13 mg/L", status: "Slightly elevated" },
-  wbc: { value: "8,500/μL", status: "No infection" },
-  esr: { value: "12 mm/hr", status: "No issues" },
-  hgb: { value: "15.1 g/dL", status: "No anemia" },
-  date: "November 9, 2024",
-  doctor: "Dr. Charlie Madsen"
-};
 
 // Datos de diagnóstico
-const diagnosis = {
-  title: "Left shoulder",
-  subtitle: "X-ray results",
-  findings: "X-ray shows no fractures or dislocations. Suggesting physical therapy and possible cortisol injection if symptoms persist.",
-  date: "November 9, 2024",
-  doctor: "Dr. Jakob Center",
-  complaint: {
-    primary: "Acute pain in the left shoulder during a basketball game, landing on the left shoulder",
-    priorInjuries: "Dislocated right shoulder in July 2022",
-    activity: "Regular basketball player, prone to high-impact injuries",
-    severity: 6
-  }
-};
+
 
 export default function DashboardPage() {
   const { user, medico } = useAuth();
@@ -355,31 +314,6 @@ export default function DashboardPage() {
   
   return (
     <div className="flex flex-col h-screen bg-gray-50">
-      {/* Header simplificado - Solo logo y usuario */}
-      <header className="bg-white py-3 px-4 shadow-sm flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="bg-blue-600 text-white p-1.5 rounded-md">
-            <User className="h-5 w-5" />
-          </div>
-          <span className="font-bold text-blue-600">Aetherad</span>
-        </div>
-        
-        {/* User section */}
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" size="icon" className="rounded-full">
-            <Bell className="h-4 w-4" />
-          </Button>
-          <Button variant="ghost" size="icon" className="rounded-full">
-            <Settings className="h-4 w-4" />
-          </Button>
-          <Avatar className="h-8 w-8 border">
-            <AvatarImage src={medico?.foto_perfil} />
-            <AvatarFallback>{medico?.nombre?.charAt(0) || user?.username?.charAt(0) || 'U'}</AvatarFallback>
-          </Avatar>
-        </div>
-      </header>
-      
       {/* Main Content */}
       <main className="flex-1 p-4 overflow-auto relative">
         <div className="grid grid-cols-12 gap-4 h-full max-w-7xl mx-auto pb-16">
@@ -388,31 +322,12 @@ export default function DashboardPage() {
             <>
               {/* Anatomy Visualization Column */}
               <div className="col-span-12 md:col-span-7 bg-white rounded-xl shadow-md relative overflow-hidden">
-                {/* Top Navigation Tabs */}
-                <div className="absolute top-0 left-0 right-0 z-10">
-                  <Tabs defaultValue="intake" className="w-full">
-                    <TabsList className="w-full flex justify-between p-0 bg-transparent border-b">
-                      <TabsTrigger value="intake" className="flex-1 rounded-none data-[state=active]:bg-transparent data-[state=active]:shadow-none border-b-2 data-[state=active]:border-b-blue-600 data-[state=active]:font-medium">
-                        Intake
-                      </TabsTrigger>
-                      <TabsTrigger value="assessment" className="flex-1 rounded-none data-[state=active]:bg-transparent data-[state=active]:shadow-none border-b-2 data-[state=inactive]:border-b-transparent data-[state=active]:border-b-blue-600 data-[state=active]:font-medium">
-                        Assessment
-                      </TabsTrigger>
-                      <TabsTrigger value="diagnosis" className="flex-1 rounded-none data-[state=active]:bg-transparent data-[state=active]:shadow-none border-b-2 data-[state=inactive]:border-b-transparent data-[state=active]:border-b-blue-600 data-[state=active]:font-medium bg-white">
-                        Diagnosis
-                      </TabsTrigger>
-                      <TabsTrigger value="treatment" className="flex-1 rounded-none data-[state=active]:bg-transparent data-[state=active]:shadow-none border-b-2 data-[state=inactive]:border-b-transparent data-[state=active]:border-b-blue-600 data-[state=active]:font-medium">
-                        Treatment Plan
-                      </TabsTrigger>
-          </TabsList>
-                  </Tabs>
-                </div>
-                
+
                 {/* Anatomy Image */}
-                <div className="h-full relative flex items-center justify-center pt-10">
+                <div className="h-full relative flex items-center justify-center">
                   {/* Si tienes una imagen real del modelo anatómico, úsala aquí */}
                   <Image 
-                    src="/images/anatomy.svg"
+                    src="/images/cuerpo.svg"
                     alt="Modelo anatómico" 
                     width={400} 
                     height={600}
@@ -427,7 +342,7 @@ export default function DashboardPage() {
                         <span className="text-[10px]">+</span>
                       </div>
                     </div>
-            </div>
+                  </div>
             
                   {/* Botones de acción flotantes */}
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 flex flex-col gap-2">
