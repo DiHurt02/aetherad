@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Fondo de rayos X -->
+  <rect width="100" height="100" fill="#242424"/>
+  
+  <!-- Huesos simplificados del hombro -->
+  <path d="M30,30 C40,25 50,20 60,30 C70,40 75,50 70,60 C65,70 55,75 45,70 C35,65 25,55 30,30" fill="none" stroke="#ffffff" stroke-width="1"/>
+  <path d="M45,40 C50,35 55,35 60,40 C65,45 65,50 60,55 C55,60 50,60 45,55 C40,50 40,45 45,40" fill="none" stroke="#ffffff" stroke-width="1"/>
+  
+  <!-- Punto de lesión -->
+  <circle cx="53" cy="47" r="3" fill="#ff6b6b" stroke="#ffffff" stroke-width="0.5"/>
+</svg> 

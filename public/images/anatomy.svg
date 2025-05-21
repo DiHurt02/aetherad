@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 700" width="380" height="700">
+  <!-- Silueta humana básica -->
+  <path d="M190,120 C220,120 240,100 240,70 C240,40 220,20 190,20 C160,20 140,40 140,70 C140,100 160,120 190,120 Z" fill="#e1e8f0" stroke="#cdd6e3" stroke-width="2"/>
+  <path d="M165,120 L165,210 L140,320 L120,500 L130,650 L155,650 L170,470 L190,470 L210,470 L225,650 L250,650 L260,500 L240,320 L215,210 L215,120" fill="#e1e8f0" stroke="#cdd6e3" stroke-width="2"/>
+  <path d="M165,130 L125,230 L80,250 L75,280 L85,290 L110,300 L140,320" fill="none" stroke="#cdd6e3" stroke-width="2"/>
+  <path d="M215,130 L255,230 L300,250 L305,280 L295,290 L270,300 L240,320" fill="none" stroke="#cdd6e3" stroke-width="2"/>
+
+  <!-- Punto que marca el hombro izquierdo -->
+  <circle cx="125" cy="185" r="10" fill="#3b82f6" fill-opacity="0.6" stroke="#2563eb" stroke-width="1">
+    <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Textos informativos -->
+  <text x="10" y="680" font-family="Arial" font-size="12" fill="#64748b">Modelo anatómico simplificado</text>
+</svg> 
