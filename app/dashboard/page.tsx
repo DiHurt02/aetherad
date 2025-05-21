@@ -80,11 +80,52 @@ interface Paciente {
   [key: string]: any; // Para cualquier otro campo
 }
 
-// Dat
+// Datos de citas
+const appointments = [
+  { 
+    id: 1, 
+    date: "December 7, 2024", 
+    title: "Left shoulder injury",
+    isHighlighted: true 
+  },
+  { 
+    id: 2, 
+    date: "March 15, 2024", 
+    title: "Routine check",
+    isHighlighted: false 
+  },
+  { 
+    id: 3, 
+    date: "March 20, 2024", 
+    title: "Routine check",
+    isHighlighted: false 
+  }
+];
 
+// Datos de análisis de sangre
+const bloodTest = {
+  cbp: { value: "13 mg/L", status: "Slightly elevated" },
+  wbc: { value: "8,500/μL", status: "No infection" },
+  esr: { value: "12 mm/hr", status: "No issues" },
+  hgb: { value: "15.1 g/dL", status: "No anemia" },
+  date: "November 9, 2024",
+  doctor: "Dr. Charlie Madsen"
+};
 
 // Datos de diagnóstico
-
+const diagnosis = {
+  title: "Left shoulder",
+  subtitle: "X-ray results",
+  findings: "X-ray shows no fractures or dislocations. Suggesting physical therapy and possible cortisol injection if symptoms persist.",
+  date: "November 9, 2024",
+  doctor: "Dr. Jakob Center",
+  complaint: {
+    primary: "Acute pain in the left shoulder during a basketball game, landing on the left shoulder",
+    priorInjuries: "Dislocated right shoulder in July 2022",
+    activity: "Regular basketball player, prone to high-impact injuries",
+    severity: 6
+  }
+};
 
 export default function DashboardPage() {
   const { user, medico } = useAuth();
@@ -417,7 +458,7 @@ export default function DashboardPage() {
                         <div className="flex items-center gap-1">
                           <Avatar className="h-5 w-5">
                             <AvatarFallback className="text-[10px]">{medico?.nombre?.charAt(0) || 'M'}</AvatarFallback>
-                        </Avatar>
+                          </Avatar>
                           <span>{medico?.nombre ? `Dr. ${medico?.nombre}` : 'Médico'}</span>
                         </div>
                         <span>{ultimaConsulta?.fechaConsulta ? new Date(ultimaConsulta.fechaConsulta).toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }) : 'N/A'}</span>
@@ -430,8 +471,8 @@ export default function DashboardPage() {
                         <h3 className="text-sm font-medium">Detalles del paciente</h3>
                         <Button variant="ghost" size="icon" className="h-5 w-5 rounded-full">
                           <MoreHorizontal className="h-3 w-3" />
-                    </Button>
-                  </div>
+                        </Button>
+                      </div>
                       
                       <div className="space-y-3">
                         <div>
@@ -514,9 +555,9 @@ export default function DashboardPage() {
                         <PlusCircle className="h-4 w-4" />
                         {ultimoPaciente ? 'Nueva consulta' : 'Seleccionar paciente'}
                       </Button>
-                </div>
-              </CardContent>
-            </Card>
+                    </div>
+                  </CardContent>
+                </Card>
                 
                 {/* Recent Patients Card */}
                 <Card className="bg-white rounded-xl overflow-hidden shadow-md border-0">
@@ -591,9 +632,9 @@ export default function DashboardPage() {
                           <span className="text-xs">Añadir paciente</span>
                         </Button>
                       </div>
-                </div>
-              </CardContent>
-            </Card>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </>
           )}
@@ -706,7 +747,7 @@ export default function DashboardPage() {
           >
             <User className={`h-5 w-5 ${activeNavItem === "profile" ? "text-white" : "text-gray-600"}`} />
           </Button>
-      </div>
+        </div>
       </main>
     </div>
   );

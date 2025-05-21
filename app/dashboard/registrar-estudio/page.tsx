@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowLeft, ClipboardCheck, Save } from "lucide-react";
+import { ArrowLeft, ClipboardCheck, Save, Upload } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -29,10 +29,12 @@ import {
 import { pacienteService } from "@/lib/services/pacienteService";
 import { estudioService } from "@/lib/services/estudioService";
 import { toast } from "@/components/ui/use-toast";
+import { useAuth } from "@/providers/auth-provider";
 
 const formSchema = z.object({
   tipo: z.string().min(1, "El tipo de estudio es requerido"),
   resultado: z.string().min(1, "El resultado es requerido"),
+  documento_adjunto: z.instanceof(FileList).optional(),
 });
 
 const tiposEstudio = [
@@ -55,9 +57,11 @@ export default function RegistrarEstudioPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pacienteId = searchParams.get("pacienteId");
+  const { medico } = useAuth();
   
   const [loading, setLoading] = useState(false);
   const [paciente, setPaciente] = useState<any>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -112,6 +116,15 @@ export default function RegistrarEstudioPage() {
       return;
     }
     
+    if (!medico) {
+      toast({
+        title: "Error",
+        description: "No se pudo obtener información del médico",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setLoading(true);
     
     try {
@@ -122,7 +135,9 @@ export default function RegistrarEstudioPage() {
         tipo: values.tipo,
         fecha: fechaActual,
         resultado: values.resultado,
-        paciente: paciente.id
+        paciente: paciente.id,
+        medico: medico.id, // Añadir automáticamente el médico que está logueado
+        documento_adjunto: selectedFile
       };
       
       const resultado = await estudioService.crearEstudio(nuevoEstudio);
@@ -132,7 +147,6 @@ export default function RegistrarEstudioPage() {
         description: "El estudio ha sido registrado exitosamente",
       });
       
-      // Redirigir de vuelta a la página de QR
       router.push(`/dashboard/qr-escaneo?token=${encodeURIComponent(JSON.stringify({ pacienteId: paciente.documentId }))}`);
     } catch (error) {
       console.error("Error al registrar estudio:", error);
@@ -143,6 +157,13 @@ export default function RegistrarEstudioPage() {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      setSelectedFile(files[0]);
     }
   };
   
@@ -241,6 +262,30 @@ export default function RegistrarEstudioPage() {
                   </FormItem>
                 )}
               />
+              
+              <div className="mb-4">
+                <Label>Documento adjunto</Label>
+                <div className="mt-2">
+                  <Input 
+                    type="file" 
+                    onChange={handleFileChange}
+                    className="cursor-pointer"
+                  />
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Puede adjuntar archivos como imágenes o documentos PDF
+                </p>
+              </div>
+              
+              <div className="mb-4">
+                <Label>Médico</Label>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {medico ? `${medico.nombre} ${medico.apellidos || ''}` : 'Cargando información del médico...'}
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  (Se asigna automáticamente al médico de la sesión actual)
+                </p>
+              </div>
               
               <div className="flex justify-end space-x-4 pt-4">
                 <Button type="button" variant="outline" onClick={volver}>

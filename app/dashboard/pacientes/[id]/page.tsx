@@ -452,10 +452,6 @@ export default function PatientDetailPage({ params }: { params: { id: string }})
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <Button size="sm">
-              <PlusCircle className="mr-2 h-4 w-4" />
-              Nueva Consulta
-            </Button>
           </div>
         </div>
         
@@ -665,10 +661,6 @@ export default function PatientDetailPage({ params }: { params: { id: string }})
                         onChange={(e) => setSearchConsultas(e.target.value)}
                       />
                     </div>
-                    <Button size="sm">
-                      <PlusCircle className="mr-2 h-4 w-4" />
-                      Nueva Consulta
-                    </Button>
                   </div>
                 </div>
                 
@@ -785,10 +777,6 @@ export default function PatientDetailPage({ params }: { params: { id: string }})
                         onChange={(e) => setSearchEstudios(e.target.value)}
                       />
                     </div>
-                    <Button size="sm">
-                      <PlusCircle className="mr-2 h-4 w-4" />
-                      Nuevo Estudio
-                    </Button>
                   </div>
                 </div>
                 
@@ -873,10 +861,6 @@ export default function PatientDetailPage({ params }: { params: { id: string }})
                         onChange={(e) => setSearchVacunas(e.target.value)}
                       />
                     </div>
-                    <Button size="sm">
-                      <PlusCircle className="mr-2 h-4 w-4" />
-                      Nueva Vacuna
-                    </Button>
                   </div>
                 </div>
                 
